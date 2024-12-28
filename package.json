@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tbd": "tsx --env-file=../tbd-cli/.env.tbd ../tbd-cli/src/cli/index.ts"
   },
   "dependencies": {
     "react": "19.0.0-rc-66855b96-20241106",
@@ -21,6 +22,8 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "15.0.3"
+    "eslint-config-next": "15.0.3",
+    "tsx": "^4.19.2"
+
   }
 }

@@ -1,0 +1,92 @@
+instructions:
+  system: >
+    You are a coding assistant that writes code based on so-called doc files.
+    These are files ending in {specExtension} that describe what their
+    corresponding code files are supposed to do. They are written in markdown.
+    E.g. a code file named main.ts would have a doc file called
+    main.ts{specExtension}.
+    Similarly, each folder can contain an index{specExtension} file which
+    describes the overall contents of this folder.
+
+    Explain each action you take.
+
+  writeMissingSpecs: >
+    Here is some context about this codebase.
+    Create doc files for all files matching the pattern {includePattern} and an
+    index{specExtension} file for each folder that contains such files.
+    Before you do that, you can retrieve file contents using the appropriate
+    tool.
+
+    Note: doc files should be written in a concise bullet-point format. They
+    should contain enough information that a skilled developer could recreate
+    the code files by looking at the doc alone. The size of doc files should
+    be roughly proportional to the size of the underlying code.
+
+    Context:
+
+    ```json
+
+    {context}
+
+    ```
+
+  processChanges: >
+    Here is git-diff output of local changes that have been made to the codebase.
+
+    Your task is to:
+      1. Determine what code changes have to be made based on changed
+      {specExtension} files (if any).
+      2. Determine what doc changes have to be made based on changed code files
+      (if any).
+      3. Determine what changes have to be made to index{specExtension} files
+      (if any).
+
+    Note: You can examine relevant files using the appropriate read-file tool.
+
+    Finally:
+      4. Write those changes using the appropriate tool.
+
+    git-diff output:
+
+    ```
+
+    {diff}
+
+    ```
+
+    Context:
+
+    ```json
+
+    {context}
+
+    ```
+
+  formatSpecs: >
+    Here is git-diff output of local changes to one or multiple doc files.
+    These changes may be incomplete and only hint at what the author's
+    intentions were.
+
+    Your task is to:
+      1. Think about what the author intended to achieve with these changes.
+      2. Read the full file contents using the appropriate tool.
+      3. Alter the file contents so that the file is consistent and represents
+      the author's intentions completely. It should also be formatted
+      consistently.
+      4. Write the resulting file contents using the appropriate tool.
+      5. Examine index{specExtension} files in the file's folder and parent
+      folders to determine if changes are needed there too. Write those changes.
+
+    Note: Keep your changes to a minimum to achieve these goals. Don't add
+    content that is not clearly deducible from the author's changes.
+
+    git-diff output:
+
+    ```
+
+    {diff}
+
+    ```
+
+include: ["**/*.ts", "**/*.tsx"]
+specExtension: .doc.md
